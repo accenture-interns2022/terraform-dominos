@@ -32,7 +32,7 @@ output "AddressData" {
   value = data.dominos_address.addr
 }
 
-data "dominos_store" "store" {
+/* data "dominos_store" "store" {
   address_url_object = data.dominos_address.addr.url_object
 }
 
@@ -51,4 +51,4 @@ resource "dominos_order" "order" {
   address_api_object = data.dominos_address.addr.api_object
   item_codes         = [each.value]
   store_id           = data.dominos_store.store.store_id
-}
+} */
