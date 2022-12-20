@@ -1,5 +1,5 @@
-# Clone repoo
+ Clone repoo
 
-# terraform init
+terraform init
 
-# terraform plan
+terraform plan
