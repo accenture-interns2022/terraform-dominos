@@ -1,4 +1,4 @@
-1. Clone repoo
+1. Clone repository
 
 2. Download custom dominos provider:
 
