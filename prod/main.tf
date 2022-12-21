@@ -21,6 +21,7 @@ provider "dominos" {
   }
 }
 
+
 data "dominos_address" "addr" {
   street = var.address["street"]
   city   = var.address["city"]
