@@ -1,0 +1,43 @@
+pipeline {
+    agent any
+    tools {
+       terraform 'terraform'
+    }
+    environment {
+        AWS_ACCESS_KEY_ID     = credentials('jenkins-aws-secret-key-id')
+        AWS_SECRET_ACCESS_KEY = credentials('jenkins-aws-secret-access-key')
+    }
+    stages {
+        stage('Git checkout and AWS config') {
+           steps{
+                git branch: 'master', credentialsId: 'Github', url: 'https://github.com/accenture-interns2022/terraform-dominos'
+                sh 'aws configure set aws_access_key_id $AWS_ACCESS_KEY_ID && aws configure set aws_secret_access_key $AWS_SECRET_ACCESS_KEY && aws configure set region eu-central-1'
+            }
+        }
+        stage('terraform format check'){  {
+            sh ''' cd ./prod 
+                terraform fmt
+            '''}
+        }
+        stage('terraform Init') {
+            steps{
+                sh ''' cd ./prod 
+                terraform init
+            '''}
+        }
+        stage('terraform Validate') {
+            steps{
+                sh ''' cd ./prod 
+                terraform validate
+            '''}
+        }
+        stage('terraform apply') {
+            steps{
+                sh ''' cd ./prod 
+                terraform apply --auto-approve
+            '''}
+        }
+    }
+
+    
+}
